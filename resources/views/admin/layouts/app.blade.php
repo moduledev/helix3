@@ -184,7 +184,7 @@
 
         <!-- Main content -->
         <section class="content">
-            @include('admin.content.flash-message')
+            @include('admin.elements.flash-message')
             @yield('content')
         </section>
         <!-- /.content -->

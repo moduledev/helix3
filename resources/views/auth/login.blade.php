@@ -32,15 +32,15 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="input-group mb-3">
-                    <input id="email" type="email" class="form-control" placeholder="Email" name="email"
-                           @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required
-                    autocomplete="email" autofocus>
+                    <input id="phone" type="text" class="form-control" placeholder="Phone" name="phone"
+                           @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required
+                    autocomplete="phone" autofocus>
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                            <span class="fas fa-phone"></span>
                         </div>
                     </div>
-                    @error('email')
+                    @error('phone')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
