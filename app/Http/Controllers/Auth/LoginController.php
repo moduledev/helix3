@@ -39,6 +39,9 @@ class LoginController extends Controller
         $this->middleware('guest:admin')->except('logout');
     }
 
+    /** Use phone credential instead of email
+     * @return string
+     */
     public function username()
     {
         return 'phone';
