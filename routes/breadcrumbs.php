@@ -8,6 +8,11 @@ Breadcrumbs::for('admins', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Администраторы', route('admin.index'));
 });
+
+Breadcrumbs::for('users', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Користувачі', route('user.index'));
+});
 //
 //Breadcrumbs::for('admin', function ($trail, $name) {
 //    $trail->parent('admins');

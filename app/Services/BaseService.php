@@ -12,21 +12,26 @@ class BaseService
 {
     protected $model;
 
+    /**
+     * BaseService constructor.
+     * @param Model $model
+     */
     public function __construct(Model $model)
     {
         $this->model = $model;
     }
 
-    /** Returns all admins
-     * @return Admin[]|\Illuminate\Database\Eloquent\Collection
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Model[]
      */
     public function all()
     {
         return $this->model->all();
     }
 
-    /** Returns admin by ID
-     * @param Request $id
+    /**
+     * @param int $id
      * @return mixed
      */
     public function getById(int $id)
@@ -34,7 +39,8 @@ class BaseService
         return $this->model->findOrFail($id);
     }
 
-    /** Create new administrator
+
+    /**
      * @param $attributes
      */
     public function add($attributes)
@@ -43,6 +49,10 @@ class BaseService
     }
 
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function remove(int $id)
     {
         return $this->model->find($id)->delete();

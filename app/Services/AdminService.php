@@ -8,7 +8,6 @@ use App\Admin;
 
 class AdminService extends BaseService
 {
-
     /**
      * AdminService constructor.
      * @param Admin $admin
