@@ -2091,7 +2091,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       form: {
-        email: '',
+        phone: '',
         password: ''
       }
     };
@@ -3509,25 +3509,25 @@ var render = function() {
       },
       [
         _c("div", [
-          _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+          _c("label", { attrs: { for: "phone" } }, [_vm._v("Email")]),
           _vm._v(" "),
           _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.form.email,
-                expression: "form.email"
+                value: _vm.form.phone,
+                expression: "form.phone"
               }
             ],
-            attrs: { type: "text", name: "email", id: "email" },
-            domProps: { value: _vm.form.email },
+            attrs: { type: "text", name: "phone", id: "phone" },
+            domProps: { value: _vm.form.phone },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.form, "email", $event.target.value)
+                _vm.$set(_vm.form, "phone", $event.target.value)
               }
             }
           })

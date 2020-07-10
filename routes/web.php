@@ -25,10 +25,11 @@ Route::group(['prefix' => 'admin/dashboard','middleware' => ['auth:admin']], fun
     Route::get('/', 'Dashboard\DashboardController@index')->name('admin.dashboard');
     Route::get('/admins', 'Dashboard\AdminController@index')->name('admin.index');
     Route::post('/admins/add', 'Dashboard\AdminController@store')->name('admin.add');
-    Route::get('/admins/edit/{id}}', 'Dashboard\AdminController@edit')->name('admin.edit');
-    Route::post('/admins/delete', 'Dashboard\AdminController@delete')->name('admin.delete');
+    Route::get('/admins/edit/{id}', 'Dashboard\AdminController@edit')->name('admin.edit');
+    Route::post('/admins/delete/{id}', 'Dashboard\AdminController@delete')->name('admin.delete');
 
     Route::get('/users', 'Dashboard\UserController@index')->name('user.index');
+    Route::post('/users/add', 'Dashboard\UserController@store')->name('user.add');
 
 });
 

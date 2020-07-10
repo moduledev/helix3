@@ -45,7 +45,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
+        <a href="{{route('admin.dashboard')}}" class="brand-link">
             <img src="{{asset('img/icon.png')}}" alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3"
                  style="opacity: .8">
@@ -86,7 +86,7 @@
                     <li class="nav-header">Навігація</li>
                     <li class="nav-item">
                         <a href="{{route('admin.index')}}" class="nav-link">
-                            <i class="nav-icon far fa-user"></i>
+                            <i class="nav-icon fa fa-user-plus"></i>
                             <p>
                                 Адміністратори
                             </p>
@@ -94,7 +94,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{route('user.index')}}" class="nav-link">
-                            <i class="nav-icon far fa-users"></i>
+                            <i class="nav-icon fa fa-users"></i>
                             <p>
                                 Користувачі
                             </p>

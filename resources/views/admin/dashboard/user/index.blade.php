@@ -73,11 +73,11 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Новий адміністратор</h3>
+                        <h3 class="card-title">Новий користувач</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form method="POST" action="{{ route('admin.add') }}">
+                    <form method="POST" action="{{ route('user.add') }}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">

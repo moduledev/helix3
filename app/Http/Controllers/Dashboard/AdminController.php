@@ -27,7 +27,7 @@ class AdminController extends Controller
 
     public function store(AdminStoreRequest $request)
     {
-        if (Auth::user()->hasPermissionTo('admin-delete')) {
+        if (Auth::user()->hasPermissionTo('admin-create')) {
             $this->adminService->add($request);
             return redirect()->route('admin.index')
                 ->with('success', 'Адміністратор ' . $request->name . ' був успішно створений!');
@@ -36,11 +36,11 @@ class AdminController extends Controller
         }
     }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
         if (Auth::user()->hasPermissionTo('admin-delete')) {
-            $admin = $this->adminService->getById($request->id);
-            $this->adminService->remove($request->id);
+            $admin = $this->adminService->getById($id);
+            $this->adminService->remove($id);
             return redirect()->route('admin.index')
                 ->with('success', 'Адміністратор ' . $admin->name . ' був успішно видалений!');
         } else {

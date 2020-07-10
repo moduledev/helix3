@@ -2,8 +2,8 @@
     <div>
         <form @submit.prevent="submit">
             <div>
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" v-model="form.email">
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" v-model="form.phone">
             </div>
             <div>
                 <label for="password">Password</label>
@@ -24,7 +24,7 @@
         data() {
             return {
                 form: {
-                    email: '',
+                    phone: '',
                     password: ''
                 }
             }
