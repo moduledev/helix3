@@ -24,5 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'admin/dashboard','middleware' => ['auth:admin']], function () {
     Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
     Route::get('/admins', 'Admin\AdminController@index')->name('admin.index');
+    Route::post('/admins/add', 'Admin\AdminController@store')->name('admin.add');
+    Route::post('/admins/delete', 'Admin\AdminController@delete')->name('admin.delete');
 });
 
