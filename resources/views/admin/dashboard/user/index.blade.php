@@ -6,7 +6,7 @@
                 <h1 class="m-0 text-dark">Адміністратори</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                {{ Breadcrumbs::render('admins') }}
+                {{ Breadcrumbs::render('users') }}
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -42,18 +42,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($admins as $admin)
+                            @foreach($users as $user)
                                 <tr>
-                                    <td>{{$admin->id}}</td>
-                                    <td>{{$admin->name}}</td>
-                                    <td>{{$admin->phone}}</td>
-                                    <td>{{$admin->email}}</td>
+                                    <td>{{$user->id}}</td>
+                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->phone}}</td>
+                                    <td>{{$user->email}}</td>
                                     <td class="d-flex flex-row">
-                                        <form method="POST" action="{{ route('admin.delete', $admin->id) }}">
+                                        <form method="POST" action="{{ route('admin.delete', $user->id) }}">
                                             @csrf
                                             <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                         </form>
-                                        <form method="POST" action="{{ route('admin.edit',$admin->id) }}">
+                                        <form method="POST" action="{{ route('admin.edit',$user->id) }}">
                                             @csrf
                                             <button class="btn btn-success"><i class="fas fa-edit"></i></button>
                                         </form>
