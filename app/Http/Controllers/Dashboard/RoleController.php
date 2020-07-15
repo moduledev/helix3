@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleStoreRequest;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,8 +35,13 @@ class RoleController extends Controller
         }
     }
 
-    public function store()
+    public function create()
     {
+        return view('admin.dashboard.role.create');
+    }
 
+    public function store(RoleStoreRequest $request)
+    {
+        $this->roleService->add($request->all());
     }
 }

@@ -32,8 +32,9 @@ Route::group(['prefix' => 'admin/dashboard','middleware' => ['auth:admin']], fun
     Route::post('/users/add', 'Dashboard\UserController@store')->name('user.add');
 
     Route::get('/roles', 'Dashboard\RoleController@index')->name('role.index');
-    Route::post('/roles/add', 'Dashboard\RoleController@store')->name('role.add');
+    Route::get('/roles/create', 'Dashboard\RoleController@create')->name('role.create');
     Route::get('/roles/show/{id}', 'Dashboard\RoleController@show')->name('role.show');
+    Route::post('/roles/add', 'Dashboard\RoleController@store')->name('role.add');
 
 });
 

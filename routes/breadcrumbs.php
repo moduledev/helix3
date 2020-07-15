@@ -23,6 +23,11 @@ Breadcrumbs::for('role', function ($trail, $name) {
     $trail->parent('roles');
     $trail->push($name, route('role.show', $name));
 });
+
+Breadcrumbs::for('role-create', function ($trail) {
+    $trail->parent('roles');
+    $trail->push('Створити нову роль', route('role.create'));
+});
 //
 //Breadcrumbs::for('admin-edit', function ($trail, $name) {
 //    $trail->parent('admins');

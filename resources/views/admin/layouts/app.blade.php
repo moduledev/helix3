@@ -117,7 +117,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link ">
+                                <a href="{{route('role.create')}}" class="nav-link ">
                                     <i class="far fa-plus-square"></i>
                                     <p>Додати роль</p>
                                 </a>
