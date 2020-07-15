@@ -31,5 +31,9 @@ Route::group(['prefix' => 'admin/dashboard','middleware' => ['auth:admin']], fun
     Route::get('/users', 'Dashboard\UserController@index')->name('user.index');
     Route::post('/users/add', 'Dashboard\UserController@store')->name('user.add');
 
+    Route::get('/roles', 'Dashboard\RoleController@index')->name('role.index');
+    Route::post('/roles/add', 'Dashboard\RoleController@store')->name('role.add');
+    Route::get('/roles/show/{id}', 'Dashboard\RoleController@show')->name('role.show');
+
 });
 
