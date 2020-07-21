@@ -13,7 +13,7 @@ class AdminUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,24 @@ class AdminUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'sometimes'
+        ];
+    }
+
+    /**
+     * Custom message for validation
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Имя обязательно к заполнению!',
+            'email.required' => 'E-mail обязателун к заполнению!',
+            'password.required' => 'Введите пароль!',
+            'password.min' => 'Длина пароля должна быть не менее 8 символов!',
         ];
     }
 }

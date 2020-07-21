@@ -48,15 +48,19 @@
                                     <td>{{$admin->name}}</td>
                                     <td>{{$admin->phone}}</td>
                                     <td>{{$admin->email}}</td>
-                                    <td class="d-flex flex-row">
+                                    <td class="d-flex flex-row justify-content-centre">
                                         <form method="POST" action="{{ route('admin.delete', $admin->id) }}">
                                             @csrf
                                             <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                         </form>
-                                        <form method="POST" action="{{ route('admin.edit',$admin->id) }}">
+                                        <a href="{{ route('admin.edit',$admin->id) }}">
                                             @csrf
                                             <button class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                        </form>
+                                        </a>
+                                        <a href="{{route('admin.show', $admin->id)}}">
+                                            @csrf
+                                            <button class="btn btn-info"><i class="fas fa-eye"></i></button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

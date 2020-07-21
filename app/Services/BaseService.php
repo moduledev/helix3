@@ -57,4 +57,5 @@ class BaseService
     {
         return $this->model->find($id)->delete();
     }
+
 }
