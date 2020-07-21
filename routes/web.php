@@ -43,7 +43,7 @@ Route::group(['prefix' => 'admin/dashboard','middleware' => ['auth:admin']], fun
 });
 
 Route::get('/test', function () {
-   $test = DB::connection('mysql2')->table('people')->select('*')->where('login','380985594949')->get();
+   $test = DB::connection('mysql2')->select('select * from people where login = :phone',['phone' => '380985594949']);
 
-   return $test;
+   return json_encode($test, JSON_UNESCAPED_UNICODE);
 });
