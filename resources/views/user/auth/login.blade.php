@@ -23,14 +23,13 @@
     <div class="login-logo" >
         <img src="{{asset('img/icon.png')}}" alt="" style="width: auto;height: 145px">
         <a href="#"><b>HELIX</b>v.3.0</a>
-        <p><strong>Для адміністраторів</strong></p>
     </div>
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Авторизуйтеся для початку роботи</p>
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('user.login') }}">
                 @csrf
                 <div class="input-group mb-3">
                     <input id="phone" type="text" class="form-control" placeholder="Phone" name="phone"

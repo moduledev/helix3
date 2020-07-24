@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -26,8 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-//    protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = 'admin/dashboard';
+    protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -45,5 +44,9 @@ class LoginController extends Controller
     public function username()
     {
         return 'phone';
+    }
+    public function showLoginForm()
+    {
+        return view('auth.login');
     }
 }
