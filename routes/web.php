@@ -53,4 +53,6 @@ Route::group(['prefix' => 'user/auth'], function () {
 
 Route::group(['prefix' => 'user/dashboard','middleware' => ['auth:user']], function () {
     Route::get('/', 'User\DashboardController@index')->name('user.dashboard');
+    Route::get('/search', 'User\DashboardController@search')->name('user.search');
+
 });

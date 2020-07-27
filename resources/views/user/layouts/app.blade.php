@@ -86,7 +86,7 @@
                     </li>
                     <li class="nav-header">Навігація</li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{route('user.search')}}" class="nav-link">
                             <i class="nav-icon fa fa-search"></i>
                             <p>
                                 Пошук
