@@ -70,7 +70,7 @@
                 <!-- select -->
                 <div class="form-group">
                     <label>Select</label>
-                    <select class="form-control">
+                    <select v-model="selectedDb" class="form-control">
                         <option>option 1</option>
                         <option>option 2</option>
                         <option>option 3</option>
@@ -101,12 +101,13 @@
                     ipn: '',
                     car_number: '',
                     passport: ''
-                }
+                },
+                selectedDb: ''
             }
         },
         methods: {
-            submitForm(e){
-                console.log(this.form)
+            submitForm(){
+
             }
         }
     }

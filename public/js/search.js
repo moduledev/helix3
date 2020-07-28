@@ -197,13 +197,12 @@ __webpack_require__.r(__webpack_exports__);
         ipn: '',
         car_number: '',
         passport: ''
-      }
+      },
+      selectedDb: ''
     };
   },
   methods: {
-    submitForm: function submitForm(e) {
-      console.log(this.form);
-    }
+    submitForm: function submitForm() {}
   }
 });
 
@@ -959,36 +958,59 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Select")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedDb,
+                    expression: "selectedDb"
+                  }
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedDb = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", [_vm._v("option 1")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("option 2")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("option 3")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("option 4")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("option 5")])
+              ]
+            )
+          ])
+        ]),
         _vm._v(" "),
-        _vm._m(1)
+        _vm._m(0)
       ]
     )
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Select")]),
-        _vm._v(" "),
-        _c("select", { staticClass: "form-control" }, [
-          _c("option", [_vm._v("option 1")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("option 2")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("option 3")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("option 4")]),
-          _vm._v(" "),
-          _c("option", [_vm._v("option 5")])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
