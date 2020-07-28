@@ -69,13 +69,10 @@
             <div class="col-12">
                 <!-- select -->
                 <div class="form-group">
-                    <label>Select</label>
+                    <label>Доступні БД</label>
                     <select v-model="selectedDb" class="form-control">
-                        <option>option 1</option>
-                        <option>option 2</option>
-                        <option>option 3</option>
-                        <option>option 4</option>
-                        <option>option 5</option>
+                        <option value="">Виберіть БД</option>
+                        <option v-for="(db, index) in dbList" :key="index">{{db.slug}}</option>
                     </select>
                 </div>
             </div>
@@ -87,6 +84,8 @@
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
         name: "Search",
         data() {
@@ -102,13 +101,18 @@
                     car_number: '',
                     passport: ''
                 },
+                dbList: '',
                 selectedDb: ''
             }
         },
         methods: {
-            submitForm(){
-
+            submitForm() {
             }
+        },
+        mounted() {
+            axios.get('/dbs').then((res) => {
+               this.dbList = res.data
+            } );
         }
     }
 </script>

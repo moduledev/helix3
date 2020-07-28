@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
+use App\HelixDb;
 use App\Http\Controllers\Controller;
+use App\Services\HelixService;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -16,4 +18,5 @@ class DashboardController extends Controller
     {
         return view('user.dashboard.search');
     }
+
 }
