@@ -4,6 +4,11 @@ Breadcrumbs::for('dashboard', function ($trail) {
     $trail->push('Головна', route('admin.dashboard'));
 });
 
+Breadcrumbs::for('helixdbs', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Бази даних', route('helix.index'));
+});
+
 Breadcrumbs::for('admins', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Администраторы', route('admin.index'));

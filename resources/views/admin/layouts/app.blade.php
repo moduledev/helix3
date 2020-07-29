@@ -101,6 +101,14 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                    <a href="{{route('helix.index')}}" class="nav-link">
+                        <i class="nav-icon fa fa-database"></i>
+                        <p>
+                            Бази даних
+                        </p>
+                    </a>
+                    </li>
                     <li class="nav-item has-treeview">
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-plus-square"></i>
