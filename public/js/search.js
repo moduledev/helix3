@@ -1995,28 +1995,91 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Search",
   data: function data() {
     return {
       form: {
-        name: '',
-        surname: '',
-        patronymic: '',
-        dob: '',
-        phone: '',
-        email: '',
-        ipn: '',
-        car_number: '',
-        passport: ''
+        name: {
+          value: '',
+          disable: false
+        },
+        surname: {
+          value: '',
+          disable: false
+        },
+        patronymic: {
+          value: '',
+          disable: false
+        },
+        dob: {
+          value: '',
+          disable: false
+        },
+        phone: {
+          value: '',
+          disable: false
+        },
+        email: {
+          value: '',
+          disable: false
+        },
+        ipn: {
+          value: '',
+          disable: false
+        },
+        car_number: {
+          value: '',
+          disable: false
+        },
+        doc_series: {
+          value: '',
+          disable: false
+        }
       },
       dbList: '',
       selectedDb: ''
     };
   },
   methods: {
-    submitForm: function submitForm() {}
+    submitForm: function submitForm() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/search', {
+        db: this.selectedDb,
+        columns: this.getFilledInputs()
+      }).then(function (res) {
+        console.log(res.data);
+      });
+    },
+    getFilledInputs: function getFilledInputs() {
+      var filledInputs = [];
+
+      for (var item in this.form) {
+        if (this.form[item].value) {
+          var elem = {};
+          elem[item] = this.form[item].value;
+          filledInputs.push(elem);
+        }
+      }
+
+      return filledInputs;
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -2024,7 +2087,31 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/dbs').then(function (res) {
       _this.dbList = res.data;
     });
-  }
+  },
+  watch: {
+    selectedDb: function selectedDb(val) {
+      var _this2 = this;
+
+      if (val) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getColumns', {
+          nameDb: val
+        }).then(function (res) {
+          for (var item in _this2.form) {
+            if (res.data.includes(item)) {
+              _this2.form[item].disable = false;
+            } else {
+              _this2.form[item].disable = true;
+            }
+          }
+        });
+      } else {
+        for (var item in this.form) {
+          this.form[item].disable = false;
+        }
+      }
+    }
+  },
+  components: {}
 });
 
 /***/ }),
@@ -2535,19 +2622,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.surname,
-                    expression: "form.surname"
+                    value: _vm.form.surname.value,
+                    expression: "form.surname.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.surname },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.surname.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.surname.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "surname", $event.target.value)
+                    _vm.$set(_vm.form.surname, "value", $event.target.value)
                   }
                 }
               })
@@ -2563,19 +2654,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.name,
-                    expression: "form.name"
+                    value: _vm.form.name.value,
+                    expression: "form.name.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.name },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.name.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.name.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "name", $event.target.value)
+                    _vm.$set(_vm.form.name, "value", $event.target.value)
                   }
                 }
               })
@@ -2591,19 +2686,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.patronymic,
-                    expression: "form.patronymic"
+                    value: _vm.form.patronymic.value,
+                    expression: "form.patronymic.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.patronymic },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.patronymic.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.patronymic.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "patronymic", $event.target.value)
+                    _vm.$set(_vm.form.patronymic, "value", $event.target.value)
                   }
                 }
               })
@@ -2619,19 +2718,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.dob,
-                    expression: "form.dob"
+                    value: _vm.form.dob.value,
+                    expression: "form.dob.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.dob },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.dob.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.dob.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "dob", $event.target.value)
+                    _vm.$set(_vm.form.dob, "value", $event.target.value)
                   }
                 }
               })
@@ -2647,19 +2750,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.phone,
-                    expression: "form.phone"
+                    value: _vm.form.phone.value,
+                    expression: "form.phone.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.phone },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.phone.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.phone.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "phone", $event.target.value)
+                    _vm.$set(_vm.form.phone, "value", $event.target.value)
                   }
                 }
               })
@@ -2675,19 +2782,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.ipn,
-                    expression: "form.ipn"
+                    value: _vm.form.ipn.value,
+                    expression: "form.ipn.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.ipn },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.ipn.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.ipn.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "ipn", $event.target.value)
+                    _vm.$set(_vm.form.ipn, "value", $event.target.value)
                   }
                 }
               })
@@ -2703,19 +2814,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.car_number,
-                    expression: "form.car_number"
+                    value: _vm.form.car_number.value,
+                    expression: "form.car_number.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.car_number },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.car_number.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.car_number.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "car_number", $event.target.value)
+                    _vm.$set(_vm.form.car_number, "value", $event.target.value)
                   }
                 }
               })
@@ -2731,19 +2846,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.email,
-                    expression: "form.email"
+                    value: _vm.form.email.value,
+                    expression: "form.email.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.email },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.email.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.email.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "email", $event.target.value)
+                    _vm.$set(_vm.form.email, "value", $event.target.value)
                   }
                 }
               })
@@ -2759,19 +2878,23 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.passport,
-                    expression: "form.passport"
+                    value: _vm.form.doc_series.value,
+                    expression: "form.doc_series.value"
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Enter ..." },
-                domProps: { value: _vm.form.passport },
+                attrs: {
+                  type: "text",
+                  disabled: _vm.form.doc_series.disable,
+                  placeholder: "Enter ..."
+                },
+                domProps: { value: _vm.form.doc_series.value },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.form, "passport", $event.target.value)
+                    _vm.$set(_vm.form.doc_series, "value", $event.target.value)
                   }
                 }
               })
@@ -2815,7 +2938,17 @@ var render = function() {
                 _c("option", { attrs: { value: "" } }, [_vm._v("Виберіть БД")]),
                 _vm._v(" "),
                 _vm._l(_vm.dbList, function(db, index) {
-                  return _c("option", { key: index }, [_vm._v(_vm._s(db.slug))])
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: db.name } },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(db.slug) +
+                          "\n                    "
+                      )
+                    ]
+                  )
                 })
               ],
               2
@@ -15064,7 +15197,6 @@ __webpack_require__.r(__webpack_exports__);
 
 axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.baseURL = 'http://helix.test/api/';
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app',
   render: function render(h) {
     return h(_components_user_Search__WEBPACK_IMPORTED_MODULE_1__["default"]);
   }

@@ -6,63 +6,75 @@
                     <!-- text input -->
                     <div class="form-group">
                         <label>Прізвище</label>
-                        <input type="text" v-model="form.surname" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.surname.value" class="form-control"
+                               :disabled="form.surname.disable" placeholder="Enter ...">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- text input -->
                     <div class="form-group">
                         <label>Ім'я</label>
-                        <input type="text" v-model="form.name" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.name.value" class="form-control"
+                               :disabled="form.name.disable"
+                               placeholder="Enter ...">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- text input -->
                     <div class="form-group">
                         <label>По батькові</label>
-                        <input type="text" v-model="form.patronymic" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.patronymic.value" class="form-control"
+                               :disabled="form.patronymic.disable" placeholder="Enter ...">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- text input -->
                     <div class="form-group">
                         <label>Дата народження</label>
-                        <input type="text" v-model="form.dob" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.dob.value" class="form-control"
+                               :disabled="form.dob.disable"
+                               placeholder="Enter ...">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- text input -->
                     <div class="form-group">
                         <label>Телефон</label>
-                        <input type="text" v-model="form.phone" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.phone.value" class="form-control"
+                               :disabled="form.phone.disable" placeholder="Enter ...">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- text input -->
                     <div class="form-group">
                         <label>ІНН</label>
-                        <input type="text" v-model="form.ipn" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.ipn.value" class="form-control"
+                               :disabled="form.ipn.disable"
+                               placeholder="Enter ...">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- text input -->
                     <div class="form-group">
                         <label>Номер авто</label>
-                        <input type="text" v-model="form.car_number" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.car_number.value" class="form-control"
+                               :disabled="form.car_number.disable" placeholder="Enter ...">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- text input -->
                     <div class="form-group">
                         <label>E-mail</label>
-                        <input type="text" v-model="form.email" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.email.value" class="form-control"
+                               :disabled="form.email.disable" placeholder="Enter ...">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- text input -->
                     <div class="form-group">
                         <label>Паспорт</label>
-                        <input type="text" v-model="form.passport" class="form-control" placeholder="Enter ...">
+                        <input type="text" v-model="form.doc_series.value" class="form-control"
+                               :disabled="form.doc_series.disable" placeholder="Enter ...">
                     </div>
                 </div>
             </div>
@@ -72,7 +84,11 @@
                     <label>Доступні БД</label>
                     <select v-model="selectedDb" class="form-control">
                         <option value="">Виберіть БД</option>
-                        <option v-for="(db, index) in dbList" :key="index">{{db.slug}}</option>
+                        <option v-for="(db, index) in dbList"
+                                :value="db.name"
+                                :key="index">
+                            {{db.slug}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -91,15 +107,42 @@
         data() {
             return {
                 form: {
-                    name: '',
-                    surname: '',
-                    patronymic: '',
-                    dob: '',
-                    phone: '',
-                    email: '',
-                    ipn: '',
-                    car_number: '',
-                    passport: ''
+                    name: {
+                        value: '',
+                        disable: false
+                    },
+                    surname: {
+                        value: '',
+                        disable: false
+                    },
+                    patronymic: {
+                        value: '',
+                        disable: false
+                    },
+                    dob: {
+                        value: '',
+                        disable: false
+                    },
+                    phone: {
+                        value: '',
+                        disable: false
+                    },
+                    email: {
+                        value: '',
+                        disable: false
+                    },
+                    ipn: {
+                        value: '',
+                        disable: false
+                    },
+                    car_number: {
+                        value: '',
+                        disable: false
+                    },
+                    doc_series: {
+                        value: '',
+                        disable: false
+                    }
                 },
                 dbList: '',
                 selectedDb: ''
@@ -107,12 +150,51 @@
         },
         methods: {
             submitForm() {
+                axios.post('/search', {
+                    db: this.selectedDb,
+                    columns: this.getFilledInputs()
+                }).then((res)=>{
+                    console.log(res.data)
+                })
+            },
+            getFilledInputs(){
+                let filledInputs = [];
+                for (let item in this.form) {
+                    if (this.form[item].value) {
+                        let elem = {};
+                        elem[item] = this.form[item].value
+                        filledInputs.push(elem)
+                    }
+                }
+                return filledInputs
             }
         },
         mounted() {
             axios.get('/dbs').then((res) => {
-               this.dbList = res.data
-            } );
+                this.dbList = res.data
+            });
+        },
+        watch: {
+            selectedDb: function (val) {
+                if (val) {
+                    axios.post('/getColumns', {nameDb: val}).then((res) => {
+                        for (let item in this.form) {
+                            if (res.data.includes(item)) {
+                                this.form[item].disable = false
+                            } else {
+                                this.form[item].disable = true
+                            }
+                        }
+                    })
+                } else {
+                    for (let item in this.form) {
+                        this.form[item].disable = false
+                    }
+                }
+            }
+        },
+        components: {
+
         }
     }
 </script>

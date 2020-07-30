@@ -12,6 +12,6 @@ use Illuminate\Support\Facades\Route;
 //});
 
 
-Route::middleware('web')->group(function () {
-    Route::get('/dbs', 'Helix\HelixController@getDbs');
-});
+Route::get('/dbs', 'Helix\HelixController@getDbs');
+Route::post('/getColumns', 'Helix\HelixController@tableColumnslist');
+Route::post('/search', 'Helix\HelixController@getSearch');

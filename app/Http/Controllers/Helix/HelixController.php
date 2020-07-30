@@ -26,7 +26,7 @@ class HelixController extends Controller
     }
 
 
-    public function getDbsStatus()
+    public function dbStatus()
     {
         if (Auth::user()->hasPermissionTo('admin-show')) {
             $dbs = $this->helixService->isDbEnable();
@@ -36,4 +36,14 @@ class HelixController extends Controller
         }
     }
 
+
+    public function tableColumnslist(Request $request)
+    {
+        return response()->json($this->helixService->getTableColumns($request->nameDb));
+    }
+
+    public function getSearch(Request $request)
+    {
+         return response()->json($request->columns);
+    }
 }

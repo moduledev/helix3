@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin/dashboard','middleware' => ['auth:admin']], fun
     Route::get('/roles/show/{id}', 'Admin\Dashboard\RoleController@show')->name('role.show');
     Route::post('/roles/add', 'Admin\Dashboard\RoleController@store')->name('role.add');
 
-    Route::get('/dbs', 'Helix\HelixController@getDbsStatus')->name('helix.index');
+    Route::get('/dbs', 'Helix\HelixController@dbStatus')->name('helix.index');
 
 });
 
@@ -60,4 +60,4 @@ Route::group(['prefix' => 'user/dashboard','middleware' => ['auth:user']], funct
 
 });
 
-Route::get('/test1', 'User\HelixController@getDbsStatus');
+//Route::get('/test1', 'Helix\HelixController@tableColunmslist');
