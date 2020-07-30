@@ -96,11 +96,14 @@
                 <button class="btn btn-info">Шукати <i class="fa fa-search"></i></button>
             </div>
         </form>
+
+        <single-card></single-card>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
+    import SingleCard from "./SingleCard";
 
     export default {
         name: "Search",
@@ -194,7 +197,7 @@
             }
         },
         components: {
-
+            'single-card': SingleCard
         }
     }
 </script>
