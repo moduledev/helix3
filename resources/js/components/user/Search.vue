@@ -97,7 +97,7 @@
             </div>
         </form>
 
-        <single-card></single-card>
+        <single-card :results="results"></single-card>
     </div>
 </template>
 
@@ -148,16 +148,17 @@
                     }
                 },
                 dbList: '',
-                selectedDb: ''
+                selectedDb: '',
+                results:[]
             }
         },
         methods: {
             submitForm() {
                 axios.post('/search', {
                     db: this.selectedDb,
-                    columns: this.getFilledInputs()
+                    columns: JSON.stringify(this.getFilledInputs())
                 }).then((res)=>{
-                    console.log(res.data)
+                    this.results = res.data
                 })
             },
             getFilledInputs(){

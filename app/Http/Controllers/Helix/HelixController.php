@@ -44,6 +44,8 @@ class HelixController extends Controller
 
     public function getSearch(Request $request)
     {
-         return response()->json($request->columns);
+        if($request->db){
+            return response()->json($this->helixService->searchFromSingleTable($request));
+        }
     }
 }

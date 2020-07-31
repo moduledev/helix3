@@ -60,4 +60,4 @@ Route::group(['prefix' => 'user/dashboard','middleware' => ['auth:user']], funct
 
 });
 
-//Route::get('/test1', 'Helix\HelixController@tableColunmslist');
+Route::get('/test1', 'Helix\HelixController@tableColunmslist');

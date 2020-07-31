@@ -4,12 +4,15 @@
 namespace App\Services;
 
 use App\HelixDb;
-use http\Env\Request;
+use App\Helpers\SqlProcess;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HelixService extends BaseService
 {
+    use sqlProcess;
+
     protected $model;
 
     public function __construct(HelixDb $model)
@@ -43,6 +46,11 @@ class HelixService extends BaseService
         return $this->all();
     }
 
+    public function getdbTables()
+    {
+
+    }
+
     public function getTableColumns(string $dbName)
     {
         $columns = [];
@@ -56,16 +64,31 @@ class HelixService extends BaseService
                                             FROM INFORMATION_SCHEMA.COLUMNS
                                            WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :table'), ['db' => $dbName, 'table' => $table]);
 
-           $columns = array_merge($columns, array_map(function ($item){
+            $columns = array_merge($columns, array_map(function ($item) {
                 return $item->COLUMN_NAME;
-            },$test));
+            }, $test));
         }
 
         return $columns;
     }
 
-    public function search($data)
+    public function searchFromSingleTable(Request $request)
     {
-        return response()->json($data);
+        $sql = "SELECT * FROM " . $request->db . " WHERE id IS NOT NULL ";
+        $columns = json_decode($request->columns, true);
+
+        foreach ($columns as $column) {
+            foreach ($column as $columnName => $value) {
+                if (strpos($value, '*')) {
+                    $value = $this->processSqlString($value);
+                    $sql .= "AND $columnName LIKE '$value'";
+                } else {
+                    $sql .= "AND $columnName = '$value' ";
+                }
+            }
+        }
+        $result = DB::connection('mysql3')->select(DB::raw($sql));
+
+        return $result;
     }
 }
