@@ -62,7 +62,8 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        'mysql2' => [
+
+        'privat_db' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_SECOND', '127.0.0.1'),
@@ -81,7 +82,12 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        'mysql3' => [
+
+
+
+
+
+        'voters_2019' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_THIRD', '127.0.0.1'),
@@ -89,6 +95,25 @@ return [
             'database' => env('DB_DATABASE_THIRD', 'forge'),
             'username' => env('DB_USERNAME_THIRD', 'forge'),
             'password' => env('DB_PASSWORD_THIRD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+        'drfo_2018' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_FOURTH', '127.0.0.1'),
+            'port' => env('DB_PORT_FOURTH', '3306'),
+            'database' => env('DB_DATABASE_FOURTH', 'forge'),
+            'username' => env('DB_USERNAME_FOURTH', 'forge'),
+            'password' => env('DB_PASSWORD_FOURTH', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

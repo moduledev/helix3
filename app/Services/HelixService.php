@@ -74,21 +74,82 @@ class HelixService extends BaseService
 
     public function searchFromSingleTable(Request $request)
     {
-        $sql = "SELECT * FROM " . $request->db . " WHERE id IS NOT NULL ";
-        $columns = json_decode($request->columns, true);
+        if ($request->db !== 'privat_db') {
+            $sql = "SELECT * FROM " . $request->db . " WHERE id IS NOT NULL ";
+            $columns = json_decode($request->columns, true);
 
-        foreach ($columns as $column) {
-            foreach ($column as $columnName => $value) {
-                if (strpos($value, '*')) {
-                    $value = $this->processSqlString($value);
-                    $sql .= "AND $columnName LIKE '$value'";
-                } else {
-                    $sql .= "AND $columnName = '$value' ";
+            foreach ($columns as $column) {
+                foreach ($column as $columnName => $value) {
+                    if (strpos($value, '*')) {
+                        $value = $this->processSqlString($value);
+                        $sql .= "AND $columnName LIKE '$value'";
+                    } else {
+                        $sql .= "AND $columnName = '$value' ";
+                    }
                 }
             }
-        }
-        $result = DB::connection('mysql3')->select(DB::raw($sql));
+            return DB::connection($request->db)->select(DB::raw($sql));
 
-        return $result;
+        } else {
+            $columns = json_decode($request->columns, true);
+            $where = [];
+            foreach ($columns as $column) {
+                foreach ($column as $columnName => $value) {
+                    if (strpos($value, '*')) {
+                        $value = $this->processSqlString($value);
+                        $arr = [];
+                        array_push($arr, $columnName, 'LIKE', $value);
+                        $where[] = $arr;
+                    } else {
+                        $arr = [];
+                        array_push($arr, $columnName, '=', $value);
+                        $where[] = $arr;
+                    }
+                }
+            }
+
+            $result = DB::connection($request->db)->table('people')
+                ->select(
+                    'people.surname',
+                    'people.name',
+                    'people.patronymic',
+                    'people.dob',
+                    'people.gender',
+                    'people.login',
+                    'people.translate',
+                    'ankets.position',
+                    'ankets.car',
+                    'ankets.children',
+                    'ankets.company',
+                    'ankets.education',
+                    'ankets.living',
+                    'ankets.marital_status',
+                    'address.address',
+                    'ankets.occupation',
+                    'ankets.occupation_position',
+                    'passports.ipn',
+                    'passports.date_document',
+                    'passports.doc_series',
+                    'phones.phone',
+                    'auto.car_number',
+                    'auto.car_model',
+                    'auto.develop_year',
+                    'auto.car_color',
+                    'auto.car_weight',
+                    'auto.car_body'
+                )
+                ->rightJoin('passports', 'passports.passport_id', '=', 'people.passport_id')
+                ->rightJoin('ankets', 'ankets.anket_id', '=', 'people.anketa_id')
+                ->rightJoin('address', 'address.address_id', '=', 'people.address_id')
+                ->rightJoin('people_phone', 'people_phone.people_id', '=', 'people.people_id')
+                ->rightJoin('phones', 'phones.id', '=', 'people_phone.phone_id')
+                ->rightJoin('auto', 'auto.people_id', '=', 'people.people_id')
+                ->where($where)
+                ->get();
+
+            return $result;
+        }
+
+
     }
 }

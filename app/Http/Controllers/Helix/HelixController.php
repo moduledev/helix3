@@ -30,7 +30,7 @@ class HelixController extends Controller
     {
         if (Auth::user()->hasPermissionTo('admin-show')) {
             $dbs = $this->helixService->isDbEnable();
-            return  view('admin.dashboard.db.index', compact('dbs'));
+            return view('admin.dashboard.db.index', compact('dbs'));
         } else {
             return redirect()->back()->with('error', 'У Вас нема прав для виконання операції');
         }
@@ -44,8 +44,11 @@ class HelixController extends Controller
 
     public function getSearch(Request $request)
     {
-        if($request->db){
+        if ($request->db) {
             return response()->json($this->helixService->searchFromSingleTable($request));
+        } elseif ($request->all) {
+
         }
+
     }
 }

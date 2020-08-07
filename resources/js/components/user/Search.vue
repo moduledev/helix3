@@ -84,6 +84,7 @@
                     <label>Доступні БД</label>
                     <select v-model="selectedDb" class="form-control">
                         <option value="">Виберіть БД</option>
+                        <option value="search_all">Шукати серед усіх </option>
                         <option v-for="(db, index) in dbList"
                                 :value="db.name"
                                 :key="index">
@@ -97,7 +98,7 @@
             </div>
         </form>
 
-        <single-card :results="results"></single-card>
+        <single-card :results="results" :filledCols="filledCols"></single-card>
     </div>
 </template>
 
@@ -149,7 +150,8 @@
                 },
                 dbList: '',
                 selectedDb: '',
-                results:[]
+                results:[],
+                filledCols:[]
             }
         },
         methods: {
@@ -158,18 +160,20 @@
                     db: this.selectedDb,
                     columns: JSON.stringify(this.getFilledInputs())
                 }).then((res)=>{
+                    console.log(res)
                     this.results = res.data
                 })
             },
             getFilledInputs(){
                 let filledInputs = [];
                 for (let item in this.form) {
-                    if (this.form[item].value) {
+                    if (this.form[item].value && !this.form[item].disable) {
                         let elem = {};
                         elem[item] = this.form[item].value
                         filledInputs.push(elem)
                     }
                 }
+                this.filledCols = filledInputs
                 return filledInputs
             }
         },

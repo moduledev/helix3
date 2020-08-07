@@ -2014,6 +2014,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2060,7 +2061,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       dbList: '',
       selectedDb: '',
-      results: []
+      results: [],
+      filledCols: []
     };
   },
   methods: {
@@ -2071,6 +2073,7 @@ __webpack_require__.r(__webpack_exports__);
         db: this.selectedDb,
         columns: JSON.stringify(this.getFilledInputs())
       }).then(function (res) {
+        console.log(res);
         _this.results = res.data;
       });
     },
@@ -2078,13 +2081,14 @@ __webpack_require__.r(__webpack_exports__);
       var filledInputs = [];
 
       for (var item in this.form) {
-        if (this.form[item].value) {
+        if (this.form[item].value && !this.form[item].disable) {
           var elem = {};
           elem[item] = this.form[item].value;
           filledInputs.push(elem);
         }
       }
 
+      this.filledCols = filledInputs;
       return filledInputs;
     }
   },
@@ -2156,10 +2160,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingleCard",
-  props: ['results'],
-  data: function data() {}
+  props: ['results', 'filledCols'],
+  data: function data() {
+    return {
+      localize: {
+        name: "Ім'я",
+        surname: 'Прізвище',
+        dob: 'Дата народження',
+        patronymic: 'По батькові',
+        car_number: 'Номер авто',
+        login: 'Логін',
+        position: 'Посада',
+        marital_status: 'Сімейний статус',
+        living: 'Умови проживання',
+        occupation: 'Зайнятість',
+        occupation_position: 'Статус зайнятості',
+        gender: 'Стать',
+        children: 'Діти',
+        doc_series: 'Паспотр',
+        phone: 'Телефон',
+        company: 'Місце роботи',
+        address: 'Адреса',
+        ipn: 'ІНН',
+        car_model: 'Модель авто',
+        develop_year: 'Рік виробництва',
+        car_color: 'Колір авто',
+        car_weight: 'Вага авто',
+        car_body: 'Тип кузова'
+      }
+    };
+  },
+  methods: {
+    findKey: function findKey(key) {
+      for (var item in this.filledCols) {
+        if (this.filledCols[item].hasOwnProperty(key)) {
+          return true;
+        }
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -2176,7 +2228,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.bg_red[data-v-4cc0cae1] {\n    color: #32a1b8;\n}\n", ""]);
+exports.push([module.i, "\n.bg_red[data-v-4cc0cae1] {\n    color: #32a1b8;\n}\n.filledCols[data-v-4cc0cae1] {\n    color: red;\n}\n", ""]);
 
 // exports
 
@@ -3647,6 +3699,10 @@ var render = function() {
                     _vm._v("Виберіть БД")
                   ]),
                   _vm._v(" "),
+                  _c("option", { attrs: { value: "search_all" } }, [
+                    _vm._v("Шукати серед усіх ")
+                  ]),
+                  _vm._v(" "),
                   _vm._l(_vm.dbList, function(db, index) {
                     return _c(
                       "option",
@@ -3670,7 +3726,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("single-card", { attrs: { results: _vm.results } })
+      _c("single-card", {
+        attrs: { results: _vm.results, filledCols: _vm.filledCols }
+      })
     ],
     1
   )
@@ -3712,24 +3770,46 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "mt-4" },
-    _vm._l(_vm.results, function(result, index) {
-      return _c("div", { key: index, staticClass: "card" }, [
-        _vm._m(0, true),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c(
-            "ul",
-            _vm._l(result, function(col, key, index) {
-              return _c("li", { key: index }, [
-                _vm._v(_vm._s(key) + " - " + _vm._s(col))
+    [
+      _vm._l(_vm.results, function(result, index) {
+        return _vm.results.length > 0
+          ? _c("div", { key: index, staticClass: "card" }, [
+              _vm._m(0, true),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "ul",
+                  _vm._l(result, function(col, key, index) {
+                    return _c(
+                      "li",
+                      { key: index, class: { filledCols: _vm.findKey(key) } },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(
+                              _vm.localize[key] ? _vm.localize[key] : key
+                            ) +
+                            " - " +
+                            _vm._s(col) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
               ])
-            }),
-            0
-          )
-        ])
-      ])
-    }),
-    0
+            ])
+          : _vm._e()
+      }),
+      _vm._v(" "),
+      _vm.results.length === 0
+        ? _c("div", { staticClass: "text-center" }, [
+            _c("strong", [_vm._v("Відсутні співпадіння")])
+          ])
+        : _vm._e()
+    ],
+    2
   )
 }
 var staticRenderFns = [
