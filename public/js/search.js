@@ -2171,6 +2171,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingleCard",
   props: ['results', 'filledCols'],
@@ -3771,33 +3784,55 @@ var render = function() {
     "div",
     { staticClass: "mt-4" },
     [
+      _c("h3", [
+        _vm._v("Знайдено " + _vm._s(_vm.results.length) + " співпадінь")
+      ]),
+      _vm._v(" "),
       _vm._l(_vm.results, function(result, index) {
         return _vm.results.length > 0
           ? _c("div", { key: index, staticClass: "card" }, [
               _vm._m(0, true),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "ul",
-                  _vm._l(result, function(col, key, index) {
-                    return _c(
-                      "li",
-                      { key: index, class: { filledCols: _vm.findKey(key) } },
-                      [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(
-                              _vm.localize[key] ? _vm.localize[key] : key
-                            ) +
-                            " - " +
-                            _vm._s(col) +
-                            "\n                "
+                _c("div", { staticClass: "row d-flex" }, [
+                  _c("div", { staticClass: "col-6" }, [
+                    _c(
+                      "ul",
+                      _vm._l(result, function(col, key, index) {
+                        return _c(
+                          "li",
+                          {
+                            key: index,
+                            class: { filledCols: _vm.findKey(key) }
+                          },
+                          [
+                            _vm._v(
+                              "\n                           " +
+                                _vm._s(
+                                  _vm.localize[key] ? _vm.localize[key] : key
+                                ) +
+                                " - " +
+                                _vm._s(col) +
+                                "\n                       "
+                            )
+                          ]
                         )
-                      ]
+                      }),
+                      0
                     )
-                  }),
-                  0
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-4" }, [
+                    _c("img", {
+                      attrs: {
+                        src: "/storage/moryak/" + result.fase_id,
+                        alt: ""
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1, true)
               ])
             ])
           : _vm._e()
@@ -3820,7 +3855,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [
         _c("i", { staticClass: "fas fa-user-ninja" }),
-        _vm._v(" Результат пошуку:")
+        _vm._v(" Картка пошуку:")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" }, [
@@ -3832,6 +3867,17 @@ var staticRenderFns = [
           },
           [_c("i", { staticClass: "fas fa-minus bg_red" })]
         )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12" }, [
+      _c("button", { staticClass: "btn btn-info" }, [
+        _vm._v("\n                    Перевірити за всіма доступними БД "),
+        _c("i", { staticClass: "fas fa-sync-alt" })
       ])
     ])
   }

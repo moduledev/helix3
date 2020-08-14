@@ -47,7 +47,6 @@ class HelixController extends Controller
         if ($request->db) {
             return response()->json($this->helixService->searchFromSingleTable($request));
         } elseif ($request->all) {
-
         }
 
     }

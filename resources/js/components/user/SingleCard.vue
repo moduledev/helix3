@@ -1,11 +1,12 @@
 <template>
     <div class="mt-4">
+        <h3>Знайдено {{results.length}} співпадінь</h3>
         <div class="card"
              v-for="(result, index) in results"
              :key="index"
              v-if="results.length > 0">
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-user-ninja"></i> Результат пошуку:</h3>
+                <h3 class="card-title"><i class="fas fa-user-ninja"></i> Картка пошуку:</h3>
                 <div class="card-tools">
                     <!-- Collapse Button -->
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
@@ -15,13 +16,25 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <ul>
-                    <li v-for="(col,key, index) in result" :key="index"
-                        :class="{'filledCols': findKey(key) }">
-                        {{ localize[key] ? localize[key] : key }} - {{ col }}
-                    </li>
-                </ul>
+               <div class="row d-flex">
+                   <div class="col-6">
+                       <ul>
+                           <li v-for="(col,key, index) in result" :key="index"
+                               :class="{'filledCols': findKey(key) }">
+                               {{ localize[key] ? localize[key] : key }} - {{ col }}
+                           </li>
+                       </ul>
+                   </div>
+                   <div class="col-4">
+                       <img :src="'/storage/moryak/' + result.fase_id " alt="">
+                   </div>
+               </div>
 
+                <div class="col-12">
+                    <button class="btn btn-info">
+                        Перевірити за всіма доступними БД <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
             </div>
             <!-- /.card-body -->
         </div>

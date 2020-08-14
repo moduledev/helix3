@@ -80,7 +80,7 @@ class HelixService extends BaseService
 
             foreach ($columns as $column) {
                 foreach ($column as $columnName => $value) {
-                    if (strpos($value, '*')) {
+                    if (strpos($value, '*') !== false) {
                         $value = $this->processSqlString($value);
                         $sql .= "AND $columnName LIKE '$value'";
                     } else {
@@ -95,14 +95,27 @@ class HelixService extends BaseService
             $where = [];
             foreach ($columns as $column) {
                 foreach ($column as $columnName => $value) {
-                    if (strpos($value, '*')) {
+                    if (strpos($value, '*') !== false) {
                         $value = $this->processSqlString($value);
                         $arr = [];
-                        array_push($arr, $columnName, 'LIKE', $value);
+                        if($columnName === 'ipn'){
+                            array_push($arr, 'passports.'.$columnName, 'LIKE', $value);
+                        } elseif ($columnName === 'dob') {
+                            array_push($arr, 'people.'.$columnName, 'LIKE', $value);
+                        }
+                        else {
+                            array_push($arr, $columnName, 'LIKE', $value);
+                        }
                         $where[] = $arr;
                     } else {
                         $arr = [];
-                        array_push($arr, $columnName, '=', $value);
+                        if($columnName === 'ipn'){
+                            array_push($arr, 'passports.'.$columnName, 'LIKE', $value);
+                        } elseif ($columnName === 'dob') {
+                            array_push($arr, 'people.'.$columnName, 'LIKE', $value);
+                        } else {
+                            array_push($arr, $columnName, 'LIKE', $value);
+                        }
                         $where[] = $arr;
                     }
                 }
@@ -149,7 +162,14 @@ class HelixService extends BaseService
 
             return $result;
         }
+    }
 
+    public function searchByAllDb(Request $request)
+    {
+        $dbs = $this->getDbs();
 
+        foreach ($dbs as $db) {
+
+        }
     }
 }
