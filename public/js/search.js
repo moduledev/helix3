@@ -2062,19 +2062,23 @@ __webpack_require__.r(__webpack_exports__);
       dbList: '',
       selectedDb: '',
       results: [],
-      filledCols: []
+      filledCols: [],
+      search_status: false
     };
   },
   methods: {
     submitForm: function submitForm() {
       var _this = this;
 
+      this.results = [];
+      this.search_status = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/search', {
         db: this.selectedDb,
         columns: JSON.stringify(this.getFilledInputs())
       }).then(function (res) {
         console.log(res);
         _this.results = res.data;
+        _this.search_status = false;
       });
     },
     getFilledInputs: function getFilledInputs() {
@@ -3735,7 +3739,17 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "col-6" }, [
+            _c("button", { staticClass: "btn btn-info" }, [
+              _vm._v("Шукати "),
+              _c("i", {
+                class: {
+                  "fa fa-search": _vm.search_status === false,
+                  "fas fa-cog fa-spin": _vm.search_status === true
+                }
+              })
+            ])
+          ])
         ]
       ),
       _vm._v(" "),
@@ -3746,19 +3760,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6" }, [
-      _c("button", { staticClass: "btn btn-info" }, [
-        _vm._v("Шукати "),
-        _c("i", { staticClass: "fa fa-search" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

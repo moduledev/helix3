@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="col-6">
-                <button class="btn btn-info">Шукати <i class="fa fa-search"></i></button>
+                <button class="btn btn-info">Шукати <i :class="{'fa fa-search':search_status === false, 'fas fa-cog fa-spin':search_status === true}"></i></button>
             </div>
         </form>
 
@@ -151,17 +151,21 @@
                 dbList: '',
                 selectedDb: '',
                 results:[],
-                filledCols:[]
+                filledCols:[],
+                search_status: false,
             }
         },
         methods: {
             submitForm() {
+                this.results = [];
+                this.search_status = true;
                 axios.post('/search', {
                     db: this.selectedDb,
                     columns: JSON.stringify(this.getFilledInputs())
                 }).then((res)=>{
                     console.log(res)
-                    this.results = res.data
+                    this.results = res.data;
+                    this.search_status = false;
                 })
             },
             getFilledInputs(){
